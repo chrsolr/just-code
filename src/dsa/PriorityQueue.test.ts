@@ -67,3 +67,28 @@ Deno.test('Priority queue should have max items of 5', () => {
 
   assertEquals(q.size(), 5)
 })
+
+Deno.test('Priority queue should be in correct order', () => {
+  const unorderedItems = [
+    { item: 'Internal', priority: 2 },
+    { item: 'Set', priority: 3 },
+    { item: 'Without', priority: 2 },
+    { item: '!!', priority: 4 },
+    { item: 'Queue', priority: 2 },
+    { item: 'Priority', priority: 1 },
+    { item: 'Interval', priority: 3 },
+    { item: 'My', priority: 1 },
+  ]
+
+  const q = new PriorityQueue()
+
+  unorderedItems.forEach((item) => q.enqueue(item))
+
+  assertEquals(
+    q
+      .getItems()
+      .map((item) => item.item)
+      .join(' '),
+    'My Priority Queue Without Internal Interval Set !!',
+  )
+})

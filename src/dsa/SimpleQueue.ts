@@ -14,10 +14,12 @@ export default class SimpleQueue {
 
   enqueue(item: Item): SimpleQueue {
     if (!item) {
+      console.warn(`Trying to enqueue a falsy item: ${item}`)
       return this
     }
 
-    if (this.items.length >= this.limit) {
+    if (this.size() >= this.limit) {
+      console.warn(`Max limit of ${this.limit} reached.`)
       return this
     }
 

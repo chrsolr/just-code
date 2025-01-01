@@ -92,16 +92,22 @@ export async function run(ms: number = 1000): Promise<void> {
 
   return new Promise((resolve, reject) => {
     try {
-      const q = new PriorityQueue()
-        .enqueue({ item: 'My', priority: 2 })
-        .enqueue({ item: 'Priority', priority: 1 })
-        .enqueue({ item: 'Queue', priority: 1 })
-        .enqueue({ item: 'Without', priority: 2 })
-        .enqueue({ item: 'Internal', priority: 1 })
-        .enqueue({ item: 'Set', priority: 3 })
-        .enqueue({ item: 'Interval', priority: 2 })
-        .enqueue({ item: '!!', priority: 3 })
+      const unorderedItems = [
+        { item: 'Internal', priority: 2 },
+        { item: 'Set', priority: 3 },
+        { item: 'Without', priority: 2 },
+        { item: '!!', priority: 4 },
+        { item: 'Queue', priority: 2 },
+        { item: 'Priority', priority: 1 },
+        { item: 'Interval', priority: 3 },
+        { item: 'My', priority: 1 },
+      ]
 
+      const q = new PriorityQueue()
+
+      unorderedItems.forEach((item) => q.enqueue(item))
+
+      console.info('Unordered items:', unorderedItems)
       console.info('Initial items:', q.getItems())
 
       interval = setInterval(() => {
