@@ -1,6 +1,10 @@
 # Just Code
 
-## Queue's
+A random assortment of code, just for fun.
+
+---
+
+### Queue's
 
 <details open>
 <summary>Simple Queue</summary>
