@@ -18,6 +18,13 @@
   "workspace": {
     "dependencies": [
       "jsr:@std/assert@1"
-    ]
+    ],
+    "packageJson": {
+      "dependencies": [
+        "npm:@eslint/js@^9.17.0",
+        "npm:eslint@^9.17.0",
+        "npm:typescript-eslint@^8.19.0"
+      ]
+    }
   }
 }

@@ -1,98 +1,100 @@
 type Options = {
-  limit?: number;
-};
+  limit?: number
+}
+
+type Item = unknown
 
 export default class SimpleQueue {
-  private limit: number = 10;
-  private items: unknown[] = [];
+  private limit: number = 10
+  private items: Item[] = []
 
   constructor({ limit }: Options = {}) {
-    this.limit = limit ?? 10;
+    this.limit = limit ?? 10
   }
 
-  enqueue(item: unknown) {
+  enqueue(item: Item): SimpleQueue {
     if (!item) {
-      return this;
+      return this
     }
 
     if (this.items.length >= this.limit) {
-      return this;
+      return this
     }
 
-    this.items.push(item);
+    this.items.push(item)
 
-    return this;
+    return this
   }
 
-  dequeue() {
+  dequeue(): SimpleQueue {
     if (this.isEmpty()) {
-      return this;
+      return this
     }
 
-    this.items.shift();
+    this.items.shift()
 
-    return this;
+    return this
   }
 
-  getItems() {
-    return this.items ?? [];
+  getItems(): Item[] {
+    return this.items ?? []
   }
 
-  size() {
-    return this.items.length ?? 0;
+  size(): number {
+    return this.items.length ?? 0
   }
 
-  clear() {
-    this.items = [];
-    return this;
+  clear(): SimpleQueue {
+    this.items = []
+    return this
   }
 
-  isEmpty() {
-    return !(this.items?.length <= 0);
+  isEmpty(): boolean {
+    return this.items?.length <= 0
   }
 
-  peek() {
+  peek(): Item | null {
     if (this.items.length > 0) {
-      return this.items[0];
+      return this.items[0]
     }
 
-    return null;
+    return null
   }
 }
 
 // deno-lint-ignore require-await
 export async function run(ms: number = 1000): Promise<void> {
-  console.info("Simple Queue Started!!");
+  console.info('Simple Queue Started!!')
 
-  let interval: number | null = null;
+  let interval: number | null = null
 
   return new Promise((resolve, reject) => {
     try {
       const q = new SimpleQueue()
-        .enqueue("My")
-        .enqueue("Simple")
-        .enqueue("Queue")
-        .enqueue("Without")
-        .enqueue("Internal")
-        .enqueue("Set")
-        .enqueue("Interval")
-        .enqueue("!!");
+        .enqueue('My')
+        .enqueue('Simple')
+        .enqueue('Queue')
+        .enqueue('Without')
+        .enqueue('Internal')
+        .enqueue('Set')
+        .enqueue('Interval')
+        .enqueue('!!')
 
-      console.info("Initial items:", q.getItems());
+      console.info('Initial items:', q.getItems())
 
       interval = setInterval(() => {
-        q.dequeue();
+        q.dequeue()
 
-        console.info("Items:", q.getItems());
+        console.info('Items:', q.getItems())
 
         if (q.isEmpty() && interval !== null) {
-          clearInterval(interval);
-          resolve();
+          clearInterval(interval)
+          resolve()
         }
-      }, ms);
+      }, ms)
     } catch (error) {
-      console.error(error);
-      reject();
+      console.error(error)
+      reject()
     }
-  });
+  })
 }

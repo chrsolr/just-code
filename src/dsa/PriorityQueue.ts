@@ -1,122 +1,122 @@
 type Options = {
-  limit?: number;
-};
+  limit?: number
+}
 
 type Item = {
-  item: unknown;
-  priority: number;
-};
+  item: unknown
+  priority: number
+}
 
 export default class PriorityQueue {
-  private limit: number = 10;
-  private items: Item[] = [];
+  private limit: number = 10
+  private items: Item[] = []
 
   constructor({ limit }: Options = {}) {
-    this.limit = limit ?? 10;
+    this.limit = limit ?? 10
   }
 
-  enqueue(item?: Item) {
+  enqueue(item?: Item): PriorityQueue {
     if (!item) {
-      console.warn(`Trying to enqueue a falsy item: ${item}`);
-      return this;
+      console.warn(`Trying to enqueue a falsy item: ${item}`)
+      return this
     }
 
     if (this.size() >= this.limit) {
-      console.warn(`Max limit of ${this.limit} reached.`);
-      return this;
+      console.warn(`Max limit of ${this.limit} reached.`)
+      return this
     }
 
     if (this.isEmpty()) {
-      this.items.push(item);
-      return this;
+      this.items.push(item)
+      return this
     }
 
     for (let i = 0; i < this.items.length; i++) {
-      const currentItem = this.items[i];
+      const currentItem = this.items[i]
 
       if (item.priority <= currentItem.priority) {
-        this.items.splice(i, 0, item);
-        break;
+        this.items.splice(i, 0, item)
+        break
       }
 
       if (i === this.items.length - 1) {
-        this.items.push(item);
-        break;
+        this.items.push(item)
+        break
       }
     }
 
-    return this;
+    return this
   }
 
-  dequeue() {
+  dequeue(): PriorityQueue {
     if (this.isEmpty()) {
-      return this;
+      return this
     }
 
-    this.items.shift();
+    this.items.shift()
 
-    return this;
+    return this
   }
 
-  getItems() {
-    return this.items;
+  getItems(): Item[] {
+    return this.items
   }
 
-  size() {
-    return this.items?.length ?? 0;
+  size(): number {
+    return this.items?.length ?? 0
   }
 
-  clear() {
-    this.items = [];
-    return this;
+  clear(): PriorityQueue {
+    this.items = []
+    return this
   }
 
-  isEmpty() {
-    return this.items?.length <= 0;
+  isEmpty(): boolean {
+    return this.items?.length <= 0
   }
 
-  peek() {
-    if (this.items?.length > 0) {
-      return this.items[0];
+  peek(): Item | null {
+    if (!this.isEmpty()) {
+      return this.items[0]
     }
 
-    return null;
+    return null
   }
 }
 
 // deno-lint-ignore require-await
 export async function run(ms: number = 1000): Promise<void> {
-  console.info("Priority Queue Started!!");
+  console.info('Priority Queue Started!!')
 
-  let interval: number | null = null;
+  let interval: number | null = null
 
   return new Promise((resolve, reject) => {
     try {
       const q = new PriorityQueue()
-        .enqueue({ item: "My", priority: 2 })
-        .enqueue({ item: "Priority", priority: 1 })
-        .enqueue({ item: "Queue", priority: 1 })
-        .enqueue({ item: "Without", priority: 2 })
-        .enqueue({ item: "Internal", priority: 1 })
-        .enqueue({ item: "Set", priority: 3 })
-        .enqueue({ item: "Interval", priority: 2 })
-        .enqueue({ item: "!!", priority: 3 });
+        .enqueue({ item: 'My', priority: 2 })
+        .enqueue({ item: 'Priority', priority: 1 })
+        .enqueue({ item: 'Queue', priority: 1 })
+        .enqueue({ item: 'Without', priority: 2 })
+        .enqueue({ item: 'Internal', priority: 1 })
+        .enqueue({ item: 'Set', priority: 3 })
+        .enqueue({ item: 'Interval', priority: 2 })
+        .enqueue({ item: '!!', priority: 3 })
 
-      console.info("Initial items:", q.getItems());
+      console.info('Initial items:', q.getItems())
 
       interval = setInterval(() => {
-        q.dequeue();
+        q.dequeue()
 
-        console.info("Items:", q.getItems());
+        console.info('Items:', q.getItems())
 
         if (q.isEmpty() && interval !== null) {
-          clearInterval(interval);
-          resolve();
+          clearInterval(interval)
+          resolve()
         }
-      }, ms);
+      }, ms)
     } catch (error) {
-      console.error(error);
-      reject();
+      console.error(error)
+      reject()
     }
-  });
+  })
 }
