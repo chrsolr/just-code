@@ -5,7 +5,8 @@
 <details open>
 <summary>Simple Queue</summary>
 <br>
-[Simple Queue Code](src/dsa/SimpleQueue.ts)
+
+[Simple Queue Code](./src/dsa/SimpleQueue.ts)
 
 A simple queue is a linear data structure that follows the First In,
 First Out (FIFO) principle, meaning the first element added to the queue
@@ -33,7 +34,8 @@ Returns the number of elements in the queue.
 <details open>
 <summary>Priority Queue</summary>
 <br>
-[Priority Queue Code](src/dsa/PriorityQueue.ts)
+
+[Priority Queue Code](./src/dsa/PriorityQueue.ts)
 
 A **Priority Queue** is a special type of queue where each element is associated with a 
 **priority**. Elements with higher priority are dequeued before those with lower priority, 
